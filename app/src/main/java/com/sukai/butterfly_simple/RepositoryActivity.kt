@@ -25,6 +25,9 @@ class RepositoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repository)
+
+
+
         nameView.text = name
         ownerView.text = owner
         urlView.text = url

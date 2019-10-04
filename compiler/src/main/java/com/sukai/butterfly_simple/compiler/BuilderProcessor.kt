@@ -70,8 +70,9 @@ class BuilderProcessor : AbstractProcessor() {
                             ?: Logger.error(it, "Field $it annotated as Optional while ${it.enclosedElements} not annotated.")
                 }
 
-        activityClasses.forEach {
-            Logger.warn(it.toString())
+        activityClasses.values.forEach {
+//            Logger.warn(it.toString())
+            it.builder.build(AptContext.filer)
         }
         return true
     }
