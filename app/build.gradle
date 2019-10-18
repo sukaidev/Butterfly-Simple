@@ -33,6 +33,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     implementation project(":annotations")
+    implementation project(":runtime")
     kapt project(":compiler")
 
     testImplementation 'junit:junit:4.12'
