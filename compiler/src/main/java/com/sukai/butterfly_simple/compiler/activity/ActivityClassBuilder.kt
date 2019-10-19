@@ -3,6 +3,8 @@ package com.sukai.butterfly_simple.compiler.activity
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.TypeSpec
 import com.sukai.butterfly_simple.compiler.activity.method.ConstantBuilder
+import com.sukai.butterfly_simple.compiler.activity.method.InjectMethodBuilder
+import com.sukai.butterfly_simple.compiler.activity.method.SaveStateMethodBuilder
 import com.sukai.butterfly_simple.compiler.activity.method.StartMethodBuilder
 import javax.annotation.processing.Filer
 import javax.lang.model.element.Modifier
@@ -18,7 +20,7 @@ class ActivityClassBuilder(private val activityClass: ActivityClass) {
         const val METHOD_NAME = "start"
         const val METHOD_NAME_NO_OPTIONAL = METHOD_NAME + "WithoutOptional"
         const val METHOD_NAME_FOR_OPTIONAL = METHOD_NAME + "WithOptional"
-        const val METHOD_NAME_FOR_OPTIONALs = METHOD_NAME + "WithOptionals"
+        const val METHOD_NAME_FOR_OPTIONALS = METHOD_NAME + "WithOptionals"
     }
 
     fun build(filer: Filer) {
@@ -28,6 +30,8 @@ class ActivityClassBuilder(private val activityClass: ActivityClass) {
 
         ConstantBuilder(activityClass).build(typeBuilder)
         StartMethodBuilder(activityClass).build(typeBuilder)
+        InjectMethodBuilder(activityClass).build(typeBuilder)
+        SaveStateMethodBuilder(activityClass).build(typeBuilder)
 
         writeJavaToFile(filer, typeBuilder.build())
     }

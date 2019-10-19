@@ -10,4 +10,10 @@ val CONTEXT  = ClassType("android.content.Context")
 
 val INTENT = ClassType("android.content.Intent")
 
+val ACTIVITY = ClassType("android.app.Activity")
+
+val BUNDLE = ClassType("android.os.Bundle")
+
+val BUNDLE_UTILS = ClassType("com.sukai.butterfly_simple.runtime.BundleUtils")
+
 val ACTIVITY_BUILDER = ClassType("com.sukai.butterfly_simple.runtime.ActivityBuilder")

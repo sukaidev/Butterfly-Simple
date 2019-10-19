@@ -37,9 +37,6 @@ class StartMethodBuilder(private val activityClass: ActivityClass) {
         if (optionalFields.size < 3) {
             optionalFields.forEach { field ->
                 startMethodNoOptional.copy(ActivityClassBuilder.METHOD_NAME_FOR_OPTIONAL + field.name.capitalize())
-                    .also {
-                        it.addField(field)
-                    }
                     .build(typeBuilder)
             }
         } else {
@@ -68,18 +65,22 @@ class StartMethodBuilder(private val activityClass: ActivityClass) {
 
                 if (field.isPrimitive) {
                     fillIntentMethodBuilder.addStatement(
-                        "intent.putExtra(\$,\$L)",
+                        "intent.putExtra(\$S,\$L)",
                         field.name,
                         field.name
                     )
                 } else {
-                    fillIntentMethodBuilder.beginControlFlow("if(\$L != null)", field.name)
+                    fillIntentMethodBuilder.beginControlFlow(
+                        "if (\$L != null && \$L != \"\")",
+                        field.name,
+                        field.name
+                    )
                         .addStatement("intent.putExtra(\$S,\$L)", field.name, field.name)
                         .endControlFlow()
                 }
             }
             typeBuilder.addMethod(fillIntentMethodBuilder.build())
-            startMethodNoOptional.copy(ActivityClassBuilder.METHOD_NAME_FOR_OPTIONALs)
+            startMethodNoOptional.copy(ActivityClassBuilder.METHOD_NAME_FOR_OPTIONALS)
                 .staticMethod(false)
                 .build(typeBuilder)
         }

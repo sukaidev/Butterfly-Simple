@@ -28,14 +28,17 @@ public class UserActivity extends AppCompatActivity {
     @Optional
     String company;
 
+    @Optional
+    String wordPlace;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        ((AppCompatTextView)findViewById(R.id.nameView)).setText(name);
-        ((AppCompatTextView)findViewById(R.id.ageView)).setText(String.valueOf(age));
-        ((AppCompatTextView)findViewById(R.id.titleView)).setText(title);
-        ((AppCompatTextView)findViewById(R.id.companyView)).setText(company);
+        ((AppCompatTextView) findViewById(R.id.nameView)).setText(name);
+        ((AppCompatTextView) findViewById(R.id.ageView)).setText(String.valueOf(age));
+        ((AppCompatTextView) findViewById(R.id.titleView)).setText(title);
+        ((AppCompatTextView) findViewById(R.id.companyView)).setText(company);
     }
 }
