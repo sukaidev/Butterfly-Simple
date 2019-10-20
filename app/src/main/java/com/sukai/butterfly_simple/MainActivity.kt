@@ -19,8 +19,8 @@ class MainActivity : AppCompatActivity() {
                     .putExtra(RepositoryActivityBuilder.OPTIONAL_URL, "https://www.sukaidev.top")
             )
         }
-//        goToUserActivity.setOnClickListener{
-//            UserActivityBuilder.start(this,22,"sukaidev","Kotliner","打杂的")
-//        }
+        goToUserActivity.setOnClickListener{
+            UserActivityBuilder.start(this,22,"sukaidev","Kotliner","打杂的","广州")
+        }
     }
 }

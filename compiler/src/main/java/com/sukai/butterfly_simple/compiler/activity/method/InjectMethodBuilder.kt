@@ -19,7 +19,7 @@ class InjectMethodBuilder(private val activityClass: ActivityClass) {
         val injectMethodBuilder = MethodSpec.methodBuilder("inject")
             .addParameter(ACTIVITY.java, "instance")
             .addParameter(BUNDLE.java, "savedInstanceState")
-            .addModifiers(Modifier.PUBLIC)
+            .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
             .returns(TypeName.VOID)
             .beginControlFlow("if (instance instanceof \$T)", activityClass.typeElement)
             .addStatement(
