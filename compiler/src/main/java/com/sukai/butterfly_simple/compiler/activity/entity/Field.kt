@@ -1,7 +1,9 @@
 package com.sukai.butterfly_simple.compiler.activity.entity
 
 import com.bennyhuo.aptutils.types.asJavaTypeName
-import com.squareup.javapoet.TypeName
+import com.bennyhuo.aptutils.types.asKotlinTypeName
+import com.squareup.javapoet.TypeName as JavaTypeName
+import com.squareup.kotlinpoet.TypeName as KotlinTypeName
 import com.sun.tools.javac.code.Symbol
 
 /**
@@ -26,5 +28,8 @@ open class Field(private val symbol: Symbol.VarSymbol) : Comparable<Field> {
         return name.compareTo(other.name)
     }
 
-    fun asJavaTypeName(): TypeName = symbol.type.asJavaTypeName()
+    fun asJavaTypeName(): JavaTypeName = symbol.type.asJavaTypeName()
+
+    open fun asKotlinTypeName():KotlinTypeName = symbol.type.asKotlinTypeName()
+
 }

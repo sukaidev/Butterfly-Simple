@@ -2,12 +2,11 @@ package com.sukai.butterfly_simple.compiler.activity
 
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.TypeSpec
-import com.sukai.butterfly_simple.compiler.activity.method.ConstantBuilder
-import com.sukai.butterfly_simple.compiler.activity.method.InjectMethodBuilder
-import com.sukai.butterfly_simple.compiler.activity.method.SaveStateMethodBuilder
-import com.sukai.butterfly_simple.compiler.activity.method.StartMethodBuilder
+import com.squareup.kotlinpoet.FileSpec
+import com.sukai.butterfly_simple.compiler.activity.method.*
 import javax.annotation.processing.Filer
 import javax.lang.model.element.Modifier
+import javax.tools.StandardLocation
 
 /**
  * Created by sukaidev on 2019/10/04.
@@ -33,6 +32,13 @@ class ActivityClassBuilder(private val activityClass: ActivityClass) {
         InjectMethodBuilder(activityClass).build(typeBuilder)
         SaveStateMethodBuilder(activityClass).build(typeBuilder)
 
+        if (activityClass.isKotlin) {
+            val fileBuilder =
+                FileSpec.builder(activityClass.packageName, activityClass.simpleName + POSIX)
+            StartKotlinFunctionBuilder(activityClass).build(fileBuilder)
+            writeKotlinToFile(filer, fileBuilder.build())
+        }
+
         writeJavaToFile(filer, typeBuilder.build())
     }
 
@@ -40,6 +46,19 @@ class ActivityClassBuilder(private val activityClass: ActivityClass) {
         try {
             val file = JavaFile.builder(activityClass.packageName, typeSpec).build()
             file.writeTo(filer)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun writeKotlinToFile(filer: Filer, fileSpec: FileSpec) {
+        try {
+            val file = filer.createResource(
+                StandardLocation.SOURCE_OUTPUT,
+                activityClass.packageName,
+                fileSpec.name + ".kt"
+            )
+            file.openWriter().also(fileSpec::writeTo).close()
         } catch (e: Exception) {
             e.printStackTrace()
         }
