@@ -41,7 +41,7 @@ class StartKotlinFunctionBuilder(private val activityClass: ActivityClass) {
                 functionBuilder.addParameter(name, className)
             }
 
-            functionBuilder.addStatement("input.putExtras(%S,%L)", name, name)
+            functionBuilder.addStatement("intent.putExtra(%S,%L)", name, name)
         }
 
         functionBuilder.addStatement("%T.INSTANCE.startActivity(this,intent)", ACTIVITY_BUILDER.kotlin)

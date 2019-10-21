@@ -19,14 +19,12 @@ class RepositoryActivity : AppCompatActivity() {
     @Optional(stringValue = "")
     lateinit var url: String
 
-    @Optional
+    @Optional(intValue = 123)
     var createAt: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repository)
-
-
 
         nameView.text = name
         ownerView.text = owner
